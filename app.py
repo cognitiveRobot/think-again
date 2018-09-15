@@ -3,6 +3,17 @@ from wtforms import Form, StringField, PasswordField, validators
 
 app = Flask(__name__)
 
+# Config MySQL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = '123456'
+app.config['MYSQL_DB'] = 'thinkagain'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+# Init MySQL
+mysql = MySQL(app)
+
+
 # Home route
 @app.route('/')
 def home():
