@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">ThinkAgain</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -11,8 +11,14 @@
 
 
   <div class="navbar-nav collapse navbar-collapse justify-content-end">
-    <a class="nav-item nav-link" href="/register">Register</a>
-    <a class="nav-item nav-link" href="/login">Login</a>
+    {% if session.logged_in %}
+      <a class="nav-item nav-link" href="/logout">Logout</a>
+    {% else %}
+      <a class="nav-item nav-link" href="/register">Register</a>
+      <a class="nav-item nav-link" href="/login">Login</a>
+    {% endif%}
+
+
   </div>
 </div>
 </nav>

@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, logging, session
+from flask import Flask, render_template, request, redirect, url_for, logging, session, flash
 from wtforms import Form, StringField, PasswordField, validators
 from flask_mysqldb import MySQL
 from passlib.hash import sha256_crypt
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -59,6 +60,8 @@ def register():
         #Close connection
         cur.close()
 
+        flash('Successful. You are registered. You may login.', 'success')
+
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
@@ -87,6 +90,8 @@ def login():
                 session['logged_in'] = True
                 session['username'] = username
 
+                flash('You are logged in.', 'success')
+
                 return redirect(url_for('about'))
             else:
                 error = 'Invalid login'
@@ -96,9 +101,27 @@ def login():
             error = 'Username not found'
             return render_template('login.html', error=error)
 
-
-
     return render_template('login.html')
+
+# Check if user looged in
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized! Please login.', 'danger')
+            return redirect(url_for('login'))
+    return wrap
+
+# Logout Route
+@app.route('/logout')
+@is_logged_in
+def logout():
+    session.clear()
+    flash('You successfully logged out', 'success')
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.secret_key = 'verySecret#123'
