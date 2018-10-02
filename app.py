@@ -3,15 +3,18 @@ from wtforms import Form, StringField, PasswordField, validators
 from flask_mysqldb import MySQL
 from passlib.hash import sha256_crypt
 from functools import wraps
+from database import dbusers
 
 app = Flask(__name__)
 
+db_users = dbusers() # Hiding database info from others
+
 # Config MySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'thinkagainuser'
-app.config['MYSQL_PASSWORD'] = 'Abc#123456'
-app.config['MYSQL_DB'] = 'thinkagain'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['MYSQL_HOST'] = db_users['host']
+app.config['MYSQL_USER'] = db_users['user']
+app.config['MYSQL_PASSWORD'] = db_users['password']
+app.config['MYSQL_DB'] = db_users['db']
+app.config['MYSQL_CURSORCLASS'] = db_users['cursor']
 
 # Init MySQL
 mysql = MySQL(app)
