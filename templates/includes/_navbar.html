@@ -12,6 +12,7 @@
 
   <div class="navbar-nav collapse navbar-collapse justify-content-end">
     {% if session.logged_in %}
+      <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
       <a class="nav-item nav-link" href="/logout">Logout</a>
     {% else %}
       <a class="nav-item nav-link" href="/register">Register</a>

@@ -6,6 +6,7 @@ from functools import wraps
 from database import dbusers
 
 app = Flask(__name__)
+app.debug=True
 
 db_users = dbusers() # Hiding database info from others
 
@@ -15,6 +16,8 @@ app.config['MYSQL_USER'] = db_users['user']
 app.config['MYSQL_PASSWORD'] = db_users['password']
 app.config['MYSQL_DB'] = db_users['db']
 app.config['MYSQL_CURSORCLASS'] = db_users['cursor']
+
+app.secret_key = 'verySecret#123'
 
 # Init MySQL
 mysql = MySQL(app)
@@ -65,7 +68,7 @@ def register():
 
         flash('Successful. You are registered. You may login.', 'success')
 
-        return redirect(url_for('login'))
+        return redirect(url_for('login', _external=True))
     return render_template('register.html', form=form)
 
 # Login Route
@@ -81,21 +84,23 @@ def login():
 
         # Execute SQL
         result = cur.execute('SELECT * FROM users WHERE username= %s', [username])
-
+        # print(data['user'])
         if result > 0:
             # Get stored hash
             data = cur.fetchone()
             password = data['password']
-
+            print(data['password'])
             # Compare Password
             if sha256_crypt.verify(password_candidate, password):
                 #Passed
                 session['logged_in'] = True
                 session['username'] = username
+                print(session['logged_in'])
 
                 flash('You are logged in.', 'success')
+                # return render_template('about.html')
 
-                return redirect(url_for('about'))
+                return redirect(url_for('dashboard', _external=True))
             else:
                 error = 'Invalid login'
                 return render_template('login.html', error=error)
@@ -117,15 +122,21 @@ def is_logged_in(f):
             return redirect(url_for('login'))
     return wrap
 
+# Dashboard
+@app.route('/dashboard')
+@is_logged_in
+def dashboard():
+    return render_template('dashboard.html')
+
 # Logout Route
 @app.route('/logout')
 @is_logged_in
 def logout():
     session.clear()
     flash('You successfully logged out', 'success')
+    # return render_template('login.html')
     return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
-    app.secret_key = 'verySecret#123'
-    app.run(debug=True)
+    app.run()
