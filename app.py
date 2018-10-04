@@ -26,7 +26,21 @@ mysql = MySQL(app)
 # Home route
 @app.route('/')
 def home():
-    return render_template('home.html')
+    # Create Cursor
+    cur = mysql.connection.cursor()
+
+    # Get articles
+    result = cur.execute("SELECT * FROM articles")
+
+    articles = cur.fetchall()
+
+    cur.close()
+
+    if result > 0:
+        return render_template('home.html', articles = articles)
+    else:
+        msg = 'No Articles Found'
+        return render_template('home.html')
 
 # About Route/Page
 @app.route('/about')
