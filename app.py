@@ -128,6 +128,18 @@ def is_logged_in(f):
 def dashboard():
     return render_template('dashboard.html')
 
+# Article Form Class
+class ArticleForm(Form):
+    title = StringField('Title', [validators.Length(min=1, max=200)])
+    body = TextAreaField('Body', [validators.Length(min=30)])
+
+# Add article
+@app.route('/add_article', methods=['GET', 'POST'])
+@is_logged_in
+def add_article():
+    form = ArticleForm(request.form)
+    return render_template('add_article.html', form=form)
+
 # Logout Route
 @app.route('/logout')
 @is_logged_in
