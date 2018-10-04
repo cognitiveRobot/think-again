@@ -42,6 +42,19 @@ def home():
         msg = 'No Articles Found'
         return render_template('home.html')
 
+#Single Article
+@app.route('/article/<string:id>/')
+def article(id):
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Get article
+    result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
+
+    article = cur.fetchone()
+
+    return render_template('article.html', article=article)
+
 # About Route/Page
 @app.route('/about')
 def about():
