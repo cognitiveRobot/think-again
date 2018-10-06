@@ -249,6 +249,26 @@ def logout():
     # return render_template('login.html')
     return redirect(url_for('login'))
 
+# Delete Article
+@app.route('/delete_article/<string:id>', methods=['POST'])
+@is_logged_in
+def delete_article(id):
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Execute
+    cur.execute("DELETE FROM articles WHERE id = %s", [id])
+
+    # Commit to DB
+    mysql.connection.commit()
+
+    #Close connection
+    cur.close()
+    print("Deteting post " + id)
+    flash('Article Deleted', 'success')
+
+    return redirect(url_for('dashboard'))
+
 
 if __name__ == '__main__':
     app.run()

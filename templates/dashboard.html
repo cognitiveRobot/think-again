@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 
+
 {% block body %}
   <h1>Dashboard <small> Welcome {{session.username}} </small></h1>
   <a class="btn btn-success" href="/add_article">Add Article</a>
   <hr>
-
   <table class="table table-striped">
     <tr>
       <th>ID</th>
@@ -22,10 +22,42 @@
         <td>{{article.create_date}}</td>
         <td> <a href="edit_article/{{article.id}}" class="btn btn-default pull-right"> Edit </a></td>
         <td>
-          <form action="#" method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="Delete" class="btn btn-danger">
-          </form>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter{{article.id}}">
+            Delete
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter{{article.id}}">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle{{article.id}}">Deleting Post Permanently</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h3>{{article.title}}??</h3>
+                  <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                  <form action="{{url_for('delete_article', id=article.id)}}" method="post">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <form action="{{url_for('delete_article', id=article.id)}}" method="post"> -->
+            <!-- <input type="hidden" name="_method" value="DELETE"> -->
+            <!-- <input type="submit" value="Delete" class="btn btn-danger" onclick="ConfirmDelete(this)" > -->
+            <!-- <input class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');"> -->
+          <!-- </form> -->
+
         </td>
       </tr>
     {% endfor %}
