@@ -197,8 +197,8 @@ def add_article():
         flash('Successful! Article has been added', 'success')
 
         return redirect(url_for('dashboard'))
-
-    return render_template('add_article.html', form=form)
+    else:
+        return render_template('add_article.html', form=form)
 
 # Edit article
 @app.route('/edit_article/<string:id>', methods=['GET', 'POST'])

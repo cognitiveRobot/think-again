@@ -5,7 +5,15 @@
   <h1>{{article.title}}</h1>
   <small>Written by {{article.author}} on {{article.create_date}}</small>
   <hr>
-  <div>
+  <!-- <a href="#Top">Top</a>
+  <a href="#Middle">Middle</a>
+  <a href="#Bottom">Bottom</a> -->
+  <div class="article">
     {{article.content | safe}}
   </div>
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
 {% endblock %}

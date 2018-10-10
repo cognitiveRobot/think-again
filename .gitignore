@@ -7,3 +7,5 @@ v-think-again/
 venv*
 __pycache__/
 database.py
+static
+static/
