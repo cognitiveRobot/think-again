@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, logging, session, flash
+from flask import Flask, render_template, request, redirect, url_for, logging, session, flash, jsonify
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from flask_mysqldb import MySQL
 from passlib.hash import sha256_crypt
@@ -21,6 +21,16 @@ app.secret_key = 'verySecret#123'
 
 # Init MySQL
 mysql = MySQL(app)
+
+# About Route/Page
+@app.route('/add_numbers')
+def add_numbers():
+    print("add_numbers is called")
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    print(a)
+    print(b)
+    return jsonify(result=a+b)
 
 
 # Home route
@@ -58,7 +68,7 @@ def article(id):
 # About Route/Page
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('test_page.html')
 
 #Register Form Class
 class RegisterForm(Form):

@@ -9,3 +9,7 @@ __pycache__/
 database.py
 static
 static/
+test_page.html
+
+# Database file
+*.sql

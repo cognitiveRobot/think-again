@@ -4,22 +4,22 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
+
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/about">About</a>
     </div>
 
 
-  <div class="navbar-nav collapse navbar-collapse justify-content-end">
-    {% if session.logged_in %}
-      <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
-      <a class="nav-item nav-link" href="/logout">Logout</a>
-    {% else %}
-      <a class="nav-item nav-link" href="/register">Register</a>
-      <a class="nav-item nav-link" href="/login">Login</a>
-    {% endif%}
+    <div class="navbar-nav justify-content-end">
+      {% if session.logged_in %}
+        <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
+        <a class="nav-item nav-link" href="/logout">Logout</a>
+      {% else %}
+        <a class="nav-item nav-link" href="/register">Register</a>
+        <a class="nav-item nav-link" href="/login">Login</a>
+      {% endif%}
+    </div>
 
-
-  </div>
 </div>
 </nav>
