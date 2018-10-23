@@ -1,4 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="grey darken-2">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo">ThinkAgain</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+
+      {% if session.logged_in %}
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/logout">Logout</a></li>
+      {% else %}
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
+      {% endif%}
+    </ul>
+  </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="/">Home</a></li>
+  <li><a href="/about">About</a></li>
+  {% if session.logged_in %}
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/logout">Logout</a></li>
+  {% else %}
+    <li><a href="/register">Register</a></li>
+    <li><a href="/login">Login</a></li>
+  {% endif%}
+</ul>
+
+
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">ThinkAgain</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -22,4 +55,4 @@
     </div>
 
 </div>
-</nav>
+</nav> -->

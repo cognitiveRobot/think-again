@@ -3,7 +3,7 @@
 
 {% block body %}
   <h1>Dashboard <small> Welcome {{session.username}} </small></h1>
-  <a class="btn btn-success" href="/add_article">Add Article</a>
+  <a class="btn grey darken-2 waves-effect waves-light" href="/add_article">Add Article</a>
   <hr>
   <table class="table table-striped">
     <tr>
@@ -20,13 +20,17 @@
         <td>{{article.title}}</td>
         <td>{{article.author}}</td>
         <td>{{article.create_date}}</td>
-        <td> <a href="edit_article/{{article.id}}" class="btn btn-default pull-right"> Edit </a></td>
         <td>
+          <a href="edit_article/{{article.id}}" class="btn-floating grey darken-2 waves-effect waves-light">
+            <i class="material-icons">edit</i>
+          </a>
+        </td>
 
+        <td>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter{{article.id}}">
-            Delete
-          </button>
+          <a class="btn-floating red waves-effect waves-light" data-toggle="modal" data-target="#exampleModalCenter{{article.id}}">
+            <i class="material-icons">remove</i>
+          </a>
           <!-- Modal -->
           <div class="modal fade" id="exampleModalCenter{{article.id}}">
             <div class="modal-dialog modal-dialog-centered" role="document">

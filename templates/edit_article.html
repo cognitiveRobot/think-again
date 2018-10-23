@@ -11,7 +11,11 @@
 
       {{ render_field(form.content, class="form-control", id="editor")}}
     </div>
-    <p> <input class="btn btn-primary" type="submit" value="Submit"></p>
+    <button class="btn grey darken-2 waves-effect waves-light" type="submit">
+      <span>Submit</span>
+      <i class="material-icons right">send</i>
+    </button>
+
   </form>
 
 {% endblock %}

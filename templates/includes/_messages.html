@@ -2,15 +2,15 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
-      <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+      <div class="card-panel grey lighten-2" >{{ message }}</div>
     {% endfor %}
   {% endif %}
 {% endwith %}
 
 {% if error %}
-  <div class="alert alert-danger" role="alert">{{error}}</div>
+  <div class="card-panel red lighten-2">{{error}}</div>
 {% endif %}
 
 {% if msg %}
-  <div class="alert alert-success" role="alert">{{msg}}</div>
+  <div class="card-panel grey lighten-2" >{{msg}}</div>
 {% endif %}

@@ -68,7 +68,7 @@ def article(id):
 # About Route/Page
 @app.route('/about')
 def about():
-    return render_template('test_page.html')
+    return render_template('about.html')
 
 #Register Form Class
 class RegisterForm(Form):
